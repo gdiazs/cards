@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "15189fe8-2063-4e84-98a6-4e0cad43b582",
+		"name": "oidc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "openid-connect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"pm.globals.set(\"jwtToken\", data.access_token);",
+							"console.log(data.access_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "gdiazs",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "Test1234",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "demo-id",
+							"type": "default"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "default"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth.aedeatech.com/auth/realms/demo/protocol/openid-connect/token",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"aedeatech",
+						"com"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"demo",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "openid-configuration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://auth.aedeatech.com/auth/realms/demo/.well-known/openid-configuration",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"aedeatech",
+						"com"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"demo",
+						".well-known",
+						"openid-configuration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "openid-issuer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://auth.aedeatech.com/auth/realms/demo",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"aedeatech",
+						"com"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "openid-certs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://auth.aedeatech.com/auth/realms/demo/protocol/openid-connect/certs",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"aedeatech",
+						"com"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"demo",
+						"protocol",
+						"openid-connect",
+						"certs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/cards/v1 - read",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwtToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItTTh2RlRZU2VwbWFPdEhha2xFUkFEVHlFNHdudVBYNjBqaldFMEdjZzRRIn0.eyJleHAiOjE2NDU0MTQzMTAsImlhdCI6MTY0NTQxNDAxMCwianRpIjoiMjg1M2M3NzEtN2UwNi00NGExLWJhZTYtMDE0ZDVjNGY2ZWZkIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLmFlZGVhdGVjaC5jb20vYXV0aC9yZWFsbXMvZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIxZmQ5OThiYi0yMmUzLTQzZDktOTM0Ny1jMjk3ZTFiNTQyN2MiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJkZW1vLWlkIiwic2Vzc2lvbl9zdGF0ZSI6IjVkZTRhY2YzLTlkN2MtNDViMi05MTJmLWY5MjliYTUzODZhZiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtZGVtbyJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjVkZTRhY2YzLTlkN2MtNDViMi05MTJmLWY5MjliYTUzODZhZiIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiR3VpbGxlcm1vIETDrWF6IFNvbMOtcyIsInByZWZlcnJlZF91c2VybmFtZSI6ImdkaWF6cyIsImdpdmVuX25hbWUiOiJHdWlsbGVybW8iLCJmYW1pbHlfbmFtZSI6IkTDrWF6IFNvbMOtcyIsImVtYWlsIjoiZGlhemdic0BnbWFpbC5jb20ifQ.JtiO1WD-QYt7iv82P5m1Sd6BdPJb9NYXFQGNjIUpm265BAz_GhNMWdmZ5-hf6FWlKopPHcHE2T1ybgxt_oOh8QgvE5cJSEkv2G5n52fS5hVNJMrdupgkLbdZsv8-B3WUt6y_GmjEeCMOe2cziK52pnA7Eo1RtCy05vp2SCZLMt-c0k86QIaWp4yQFYCgBbofyIcW9uen1vkk9CCStVhW5ds_9AcgMSMDAWC-uJVZZVyc4-y3Q94Aewjuo2oPPkbARooWbpedtahWg7tV_7TDKO50j3ydJxv3KkGO8kZKidZOoNY8FQyrq1nEQ4W1LbzcaYJlhzN8Se-xEJdeacLoyg",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cards/v1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cards",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/cards/v1 - update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwtToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItTTh2RlRZU2VwbWFPdEhha2xFUkFEVHlFNHdudVBYNjBqaldFMEdjZzRRIn0.eyJleHAiOjE2NDU0MTQzMTAsImlhdCI6MTY0NTQxNDAxMCwianRpIjoiMjg1M2M3NzEtN2UwNi00NGExLWJhZTYtMDE0ZDVjNGY2ZWZkIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLmFlZGVhdGVjaC5jb20vYXV0aC9yZWFsbXMvZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIxZmQ5OThiYi0yMmUzLTQzZDktOTM0Ny1jMjk3ZTFiNTQyN2MiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJkZW1vLWlkIiwic2Vzc2lvbl9zdGF0ZSI6IjVkZTRhY2YzLTlkN2MtNDViMi05MTJmLWY5MjliYTUzODZhZiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtZGVtbyJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjVkZTRhY2YzLTlkN2MtNDViMi05MTJmLWY5MjliYTUzODZhZiIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiR3VpbGxlcm1vIETDrWF6IFNvbMOtcyIsInByZWZlcnJlZF91c2VybmFtZSI6ImdkaWF6cyIsImdpdmVuX25hbWUiOiJHdWlsbGVybW8iLCJmYW1pbHlfbmFtZSI6IkTDrWF6IFNvbMOtcyIsImVtYWlsIjoiZGlhemdic0BnbWFpbC5jb20ifQ.JtiO1WD-QYt7iv82P5m1Sd6BdPJb9NYXFQGNjIUpm265BAz_GhNMWdmZ5-hf6FWlKopPHcHE2T1ybgxt_oOh8QgvE5cJSEkv2G5n52fS5hVNJMrdupgkLbdZsv8-B3WUt6y_GmjEeCMOe2cziK52pnA7Eo1RtCy05vp2SCZLMt-c0k86QIaWp4yQFYCgBbofyIcW9uen1vkk9CCStVhW5ds_9AcgMSMDAWC-uJVZZVyc4-y3Q94Aewjuo2oPPkbARooWbpedtahWg7tV_7TDKO50j3ydJxv3KkGO8kZKidZOoNY8FQyrq1nEQ4W1LbzcaYJlhzN8Se-xEJdeacLoyg",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cardNumber\": \"341234123414\",\n    \"cvv\": \"1234\",\n    \"holderName\": \"Guillermo B Díaz Solís\"\n\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cards/v1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cards",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
