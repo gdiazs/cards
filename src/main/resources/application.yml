@@ -1,0 +1,11 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.aedeatech.com/auth/realms/demo
+          jwk-set-uri: https://auth.aedeatech.com/auth/realms/demo/protocol/openid-connect/certs
+          
+logging.level:
+    org.springframework:
+      security: DEBUG
