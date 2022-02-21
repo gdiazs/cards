@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.gdiazs.cards.dtos.CardDto;
 import com.github.gdiazs.cards.services.CardsService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/cards/v1")
 public class CardsController {
@@ -31,7 +34,7 @@ public class CardsController {
 	public ResponseEntity<List<CardDto>> getAll() {
 
 		JwtAuthenticationToken auth = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getToken().getClaim("preferred_username").toString());
+		log.info("Authenticated user: {}", auth.getToken().getClaim("preferred_username").toString());
 		return ResponseEntity.ok(this.cardService.getAllCards());
 	}
 
